@@ -36,10 +36,8 @@ elsif command == "touch"
     end
 
 elsif command == "status"
-    mc.send(command).each do |node|
-        node[:statuscode] == 0 ? msg = node[:data][:output] : msg = node[:statusmsg]
-
-        puts "%-40s %s" % [ node[:sender], msg ]
+    mc.status(:file => options[:file]).each do |resp|
+       printf("%-40s: %s\n", resp[:sender], resp[:data][:output] || resp[:statusmsg] ) 
     end
 
 else
